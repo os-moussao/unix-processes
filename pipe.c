@@ -21,12 +21,14 @@ int main()
 	}
 	if (id == 0) {
 		/* write something on the pipe from child process */
+		close(fd[0]);
 		write(fd[1], "Far far away, behind the word mountains, far from the countries \
 Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove \
 right at the coast of the Semantics, is large enough.", 199);
 		close(fd[1]);
 	}
 	else {
+		close(fd[1]);
 		wait(NULL);
 		char buf[BUFSIZE];
 		if (read(fd[0], buf, BUFSIZE) >= BUFSIZE) {
