@@ -4,3 +4,4 @@
 	cc $< -o $@
 cl:
 	rm -f *.out
+clean: cl
