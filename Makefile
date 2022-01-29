@@ -1,3 +1,5 @@
+all:
+
 %: %.c
 	cc $< -o $@.out
 %.out: %.c
