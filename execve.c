@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define BUFSIZE 256
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str;
@@ -24,12 +26,24 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 int main()
 {
-	char PATH[] = "/home/os-moussao/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin";
+	char PATH[BUFSIZE];
+	char *var = "PATH";
 	// char *tmp[] = {"test1", "test2", "test3", NULL};
 	// execve("hello", tmp, NULL);
+
+	if (!getenv(var)) {
+		perror(var);
+		return 1;
+	}
+	if (snprintf(PATH, BUFSIZE, "%s", getenv(var)) >= BUFSIZE) {
+		fprintf(stderr, "BUFFER SIZE of %d is too small\n", BUFSIZE);
+		return 2;
+	}
 	char d[] = ":";
 	char *token;
-	
+
+	// printf("PATH = %s\n\n", PATH);
+
 	token = strtok(PATH, d);
 	while (token) {
 		// printf("ith_path = %s\n", token);
