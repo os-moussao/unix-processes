@@ -17,6 +17,7 @@ int main(int ac, char **av, char **env)
 	}
 	if (snprintf(envar, BUFSIZE, "%s = %s", av[1], getenv(av[1])) >= BUFSIZE) {
 		fprintf(stderr, "BUFFER SIZE %d too small\n", BUFSIZE);
+		return 3;
 	}
 	printf("%s\n", envar);
 }
