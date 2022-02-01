@@ -24,7 +24,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-int main()
+int main(int ac, char **av, char **envv)
 {
 	char PATH[BUFSIZE];
 	char *var = "PATH";
@@ -52,8 +52,12 @@ int main()
 		// printf("%s\n", cmd);
 		if (access(cmd, F_OK | X_OK) == 0) {
 			printf("Executing Command: %s\n", cmd);
-			char *av[] = {cmd, "-la", NULL};
-			execve(cmd, av, NULL);
+			char *av[] = {cmd, "-la", "/", NULL};
+			int ret = execve(cmd, av, envv);
+			if (ret == -1) {
+				perror("cd");
+				return 3;
+			}
 			return (0);
 		}
 		free(cmd);
