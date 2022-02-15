@@ -47,7 +47,7 @@ int main(int ac, char **av, char **envp)
 
 	// Testing errfunc and glob_check_error:
 	// ret = glob("/usr/bin/wrapper.app/*", GLOB_DOOFFS | GLOB_TILDE | GLOB_NOSORT, &errfunc, &glob_buff);
-	
+
 	glob_check_error(ret);
 
 	glob_buff.gl_pathv[0] = "/bin/ls";
@@ -57,4 +57,7 @@ int main(int ac, char **av, char **envp)
 	glob_check_error(ret);
 
 	execve(glob_buff.gl_pathv[0], glob_buff.gl_pathv, envp);
+
+	// free glob_buffer
+	globfree(&glob_buff);
 }
