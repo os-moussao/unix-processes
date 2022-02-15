@@ -7,11 +7,12 @@
 int main()
 {
 	int fd = open("out.txt", O_CREAT | O_WRONLY, 0777);
-	if (fd == -1) {
-		perror("open");
-	}
-	if (dup2(fd, STDOUT_FILENO) == -1) {
-		perror("dup2");
-	}
+	int	stdout_fd = dup(STDOUT_FILENO);
+
+	dup2(fd, STDOUT_FILENO);
 	printf("This test sould now go to the file out.txt\n");
+	fflush(stdout);
+
+	dup2(stdout_fd, STDOUT_FILENO);
+	printf("This test sould now go to the STDOUT\n");
 }
