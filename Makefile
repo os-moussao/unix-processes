@@ -4,6 +4,12 @@ all:
 	cc $< -o $@.out
 %.out: %.c
 	cc $< -o $@
-cl:
+clean:
 	rm -f *.out
-clean: cl
+
+# remove txt files
+rmtxt:
+	rm -f *.txt
+
+# alias
+cl: clean rmtxt
